@@ -1,0 +1,28 @@
+{
+    "name": "edifference/sendy",
+    "description": "Sendy plug-in for Magento 2",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "eDifference",
+            "email": "info@edifference.nl",
+            "homepage": "https://edifference.nl"
+        }
+    ],
+    "require": {
+        "php": ">=8.3"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Edifference\\Sendy\\": ""
+        }
+    }
+}
