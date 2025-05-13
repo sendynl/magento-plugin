@@ -1,0 +1,10 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="sendy_event_cleanup" instance="Edifference\Sendy\Cron\EventCleanup" method="execute">
+            <schedule>0 4 * * *</schedule>
+        </job>
+        <job name="sendy_sync_shipping_methods" instance="Edifference\Sendy\Cron\SyncShippingMethods" method="execute">
+            <schedule>15 4 * * *</schedule>
+        </job>
+    </group>
+</config>

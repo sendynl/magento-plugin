@@ -1,0 +1,51 @@
+<?php
+use Edifference\Sendy\Block\System\Config\Form\Oauth as Oauth;
+
+/** @var Oauth $block */
+?>
+<div class="pp-buttons-container">
+    <?php if ($block->getIsConnected()): ?>
+        <span>
+            <?= /* @noEscape */ __(
+                'Sendy connection successful, you are connected as: %name',
+                ['name' => $block->getInfo()['name']]
+            ); ?>
+        </span><br/>
+        <a id="sendy-logout-button" href="#">
+            <?= /* @noEscape */ __('Log out'); ?>
+        </a>
+        <script>
+            require([
+                'jquery',
+            ], function($) {
+                var url = '<?= $escaper->escapeUrl($block->getClearUrl()) ?>';
+                $('#sendy-logout-button').on('click', function(event){
+                    confirmSetLocation(
+                        '<?= /* @noEscape */ __('Do you really want to logout this magento from Sendy?') ?>',
+                        url
+                    );
+                });
+            });
+        </script>
+    <?php elseif ($block->getMessage()): ?>
+        <span style="color: red">
+        <?= /* @noEscape */ __(
+            'An error occurred connecting to Sendy: %error',
+            ['error' => $block->getMessage()]
+        ); ?>
+        </span><br/>
+        <span><?= /* @noEscape */ __('Sometimes reconnecting might solve your issues:') ?></span>
+        <a href="<?= $escaper->escapeUrl($block->getRedirectUrl()) ?>">
+            <?= $escaper->escapeHtml($block->getConnectLabel()); ?>
+        </a>
+    <?php else: ?>
+        <span>
+            <?= /* @noEscape */ __(
+                'To be able to use the Sendy plugin you will need to connect this shop to your Sendy account:'
+            ) ?>
+        </span>
+        <a href="<?= $escaper->escapeUrl($block->getRedirectUrl()) ?>">
+            <?= $escaper->escapeHtml($block->getConnectLabel()); ?>
+        </a>
+    <?php endif; ?>
+</div>

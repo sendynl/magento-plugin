@@ -1,0 +1,43 @@
+<div id="sendy-pickup-point" class="pickup-select"
+     data-bind="visible: showButton()">
+    <button id="sendy-pick-up-point-button"
+            data-bind="click: showPickupPointPicker">
+        <!-- ko ifnot: hasSelectedPickupPoint -->
+        <span data-bind="i18n: 'Select pick-up-point'"></span>
+        <!-- /ko -->
+
+        <!-- ko if: hasSelectedPickupPoint -->
+        <span data-bind="i18n: 'Change pick-up-point'"></span>
+        <!-- /ko -->
+    </button>
+
+    <div class="selected-pickup-point"
+         data-bind="visible: hasSelectedPickupPoint() == true">
+        <h5 data-bind="i18n: 'Selected Pickup point:'"></h5>
+        <div class="selected-pickup-point__info"
+             data-bind="with: pickupPointLocation">
+            <strong><span data-bind="text: name"></span></strong><br>
+            <span data-bind="text: street"></span> <span data-bind="text: number"></span><br>
+            <span data-bind="text: postal_code"></span> <span data-bind="text: city"></span>
+            <input id="carrier-id" type="hidden" data-bind="value: id">
+        </div>
+    </div>
+
+    <div role="alert"
+         data-bind="visible: errorValidationMessage() == true"
+         class="message notice">
+        <span data-bind="i18n: 'Please fill in your Zip Code and select a Country.'"></span>
+    </div>
+
+    <div role="alert"
+         data-bind="visible: errorMessage() == true"
+         class="message notice">
+        <span data-bind="i18n: 'Something went wrong while saving the Pickup point. Please try again later.'"></span>
+    </div>
+
+    <div role="alert"
+         data-bind="visible: pickupPointRequiredMessage() == true"
+         class="message notice">
+        <span data-bind="i18n: 'Please select a Pickup point.'"></span>
+    </div>
+</div>

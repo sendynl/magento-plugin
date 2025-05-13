@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- app/code/Vendor/ModuleName/etc/config.xml -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/config.xsd">
+    <default>
+        <carriers>
+            <sendypickuppoint_postnl>
+                <active>0</active>
+                <title>Sendy PostNL Pickuppoint</title>
+                <name>Sendy PostNL Pickuppoint</name>
+                <price>0.00</price>
+                <sort_order>0</sort_order>
+                <model>Edifference\Sendy\Model\Carrier\SendyPickuppointPostNl</model>
+            </sendypickuppoint_postnl>
+            <sendypickuppoint_dhl>
+                <active>0</active>
+                <title>Sendy DHL Pickuppoint</title>
+                <name>Sendy DHL Pickuppoint</name>
+                <price>0.00</price>
+                <sort_order>0</sort_order>
+                <model>Edifference\Sendy\Model\Carrier\SendyPickuppointDhl</model>
+            </sendypickuppoint_dhl>
+            <sendypickuppoint_dpd>
+                <active>0</active>
+                <title>Sendy DPD Pickuppoint</title>
+                <name>Sendy DPD Pickuppoint</name>
+                <price>0.00</price>
+                <sort_order>0</sort_order>
+                <model>Edifference\Sendy\Model\Carrier\SendyPickuppointDpd</model>
+            </sendypickuppoint_dpd>
+        </carriers>
+    </default>
+</config>

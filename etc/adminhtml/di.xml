@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd"
+>
+    <type name="Magento\Backend\Block\Widget\Button\ToolbarInterface">
+        <plugin name="sendy_shipping_button_toolbar" type="Edifference\Sendy\Plugin\Button\ToolbarPlugin"/>
+    </type>
+    <type name="Magento\Ui\Component\MassAction">
+        <plugin name="edifferenceSendyMassAction" type="Edifference\Sendy\Plugin\Component\MassActionPlugin"/>
+    </type>
+</config>

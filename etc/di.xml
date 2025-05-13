@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Edifference\Sendy\Service\Connection">
+        <plugin name="Edifference\Sendy\Plugin\ConnectionPlugin" type="Edifference\Sendy\Plugin\ConnectionPlugin"/>
+    </type>
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="Edifference\Sendy\Api\Data\EventInterface"
+                      xsi:type="string">Edifference\Sendy\Api\EventRepositoryInterface
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Edifference\Sendy\Api\Data\EventInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">sendy_api_event</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Edifference\Sendy\Api\Data\EventInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Edifference\Sendy\Api\Data\EventInterface" type="Edifference\Sendy\Model\Event"/>
+    <preference for="Edifference\Sendy\Api\EventRepositoryInterface" type="Edifference\Sendy\Model\EventRepository" />
+    <preference for="Edifference\Sendy\Api\Data\EventInterface" type="Edifference\Sendy\Model\Event" />
+    <preference for="Edifference\Sendy\Api\Data\EventSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Edifference\Sendy\Api\Data\ShipmentInterface" type="Edifference\Sendy\Model\Data\Shipment"/>
+    <preference for="Edifference\Sendy\Api\PickuppointInterface" type="Edifference\Sendy\Service\Pickuppoint" />
+    <preference for="Edifference\Sendy\Api\GuestPickuppointInterface" type="Edifference\Sendy\Service\GuestPickuppoint" />
+    <preference for="Edifference\Sendy\Api\WebhookInterface" type="Edifference\Sendy\Service\Webhook"/>
+    <preference for="Edifference\Sendy\Api\Data\WebhookDataInterface" type="Edifference\Sendy\Model\Data\WebhookData"/>
+    <preference for="Edifference\Sendy\Api\Data\WebhookResultInterface" type="Edifference\Sendy\Model\Data\WebhookResult"/>
+    <preference for="Sendy\Api\Connection" type="Edifference\Sendy\Service\Connection"/>
+</config>

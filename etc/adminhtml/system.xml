@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="sendy" translate="label" sortOrder="100">
+            <label>Sendy</label>
+        </tab>
+        <section id="edifference_sendy" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Configuration</label>
+            <tab>sendy</tab>
+            <resource>Edifference_Sendy::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="connection" type="text" sortOrder="20" showInDefault="1">
+                <label>Connection settings</label>
+                <field id="connect_button" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Authorization</label>
+                    <frontend_model>Edifference\Sendy\Block\System\Config\Form\Oauth</frontend_model>
+                </field>
+                <depends>
+                    <field id="edifference_sendy/general/enable">1</field>
+                </depends>
+            </group>
+            <group id="shipping_labels" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Shipping Labels</label>
+                <field id="sendy_shop" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sendy shop</label>
+                    <source_model>Edifference\Sendy\Model\Config\Source\SendyShop</source_model>
+                    <comment>Select the shop to be used when creating the shipping label for this store. Sendy shops can only be loaded when you have a successful connection with Sendy in Connection Settings.</comment>
+                </field>
+                <depends>
+                    <field id="edifference_sendy/general/enable">1</field>
+                </depends>
+            </group>
+            <group id="processing" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Processing</label>
+                <field id="method" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Processing method</label>
+                    <source_model>Edifference\Sendy\Model\Config\Source\ProcessingMethod</source_model>
+                    <comment>Select which processing method to use for processing shipments.</comment>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                    <comment>Send order to Sendy when status changed to</comment>
+                    <depends>
+                        <field id="edifference_sendy/processing/method">sendy</field>
+                    </depends>
+                </field>
+                <depends>
+                    <field id="edifference_sendy/general/enable">1</field>
+                </depends>
+            </group>
+            <group id="import" translate="label" type="text" sortOrder="40" showInDefault="1" showInStore="1">
+                <label>Import Weight</label>
+                <field id="import_weight" translate="label comment" type="select" sortOrder="10" showInDefault="1">
+                    <label>Import weight when creating a shipment</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the import of weight when creating a shipment</comment>
+                </field>
+                <depends>
+                    <field id="edifference_sendy/general/enable">1</field>
+                </depends>
+            </group>
+            <group id="order_status" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Order Status</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Update order status</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable updating the status of the order after creating a shipping label</comment>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                    <comment>Select the order status that will be set after creating a shipping label</comment>
+                    <depends>
+                        <field id="edifference_sendy/order_status/enable">1</field>
+                    </depends>
+                </field>
+                <depends>
+                    <field id="edifference_sendy/general/enable">1</field>
+                </depends>
+            </group>
+        </section>
+        <section id="carriers">
+            <group id="sendypickuppoint_postnl" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sendy PostNL Pickuppoint</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="price" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Price</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sort Order</label>
+                </field>
+            </group>
+            <group id="sendypickuppoint_dhl" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sendy DHL Pickuppoint</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="price" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Price</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sort Order</label>
+                </field>
+            </group>
+            <group id="sendypickuppoint_dpd" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sendy DPD Pickuppoint</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="price" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Price</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sort Order</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

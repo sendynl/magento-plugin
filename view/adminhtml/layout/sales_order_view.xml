@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <referenceBlock name="order_additional_info">
+        <block class="Edifference\Sendy\Block\Adminhtml\Order\View\ShippingLabel"
+               name="shipping_label_pdf"
+               template="Edifference_Sendy::order/view/ShippingLabel.phtml" />
+    </referenceBlock>
+</layout>

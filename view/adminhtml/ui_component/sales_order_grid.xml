@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction">
+            <action name="mass_create_shipping_label">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">add</item>
+                        <item name="url" xsi:type="url" path="sendy/shipment/masscreate"/>
+                        <item name="label" xsi:type="string" translate="true">Create Sendy Labels</item>
+                        <item name="module" xsi:type="string">Edifference_Sendy</item>
+                        <item name="callback" xsi:type="array">
+                            <item name="provider" xsi:type="string">sendyModal</item>
+                            <item name="target" xsi:type="string">showPopup</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+            <action name="mass_download_shipping_label">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">download</item>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Download Sendy Shipping Labels</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to download labels for selected items?</item>
+                        </item>
+                        <item name="url" xsi:type="url" path="sendy/download/massdownloadshippinglabel"/>
+                        <item name="label" xsi:type="string" translate="true">Download Sendy Shipping Labels</item>
+                        <item name="module" xsi:type="string">Edifference_Sendy</item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+    </listingToolbar>
+</listing>

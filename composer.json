@@ -2,7 +2,7 @@
     "name": "edifference/sendy",
     "description": "Sendy plug-in for Magento 2",
     "type": "magento2-module",
-    "version": "1.0.0",
+    "version": "1.0.9",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
@@ -15,7 +15,8 @@
         }
     ],
     "require": {
-        "php": ">=8.3"
+        "php": ">=8.2",
+        "sendynl/php-sdk": "^2.0"
     },
     "autoload": {
         "files": [
@@ -23,6 +24,22 @@
         ],
         "psr-4": {
             "Edifference\\Sendy\\": ""
+        }
+    },
+    "require-dev": {
+        "magento/magento-coding-standard": "^36.0",
+        "magento/framework": "^103.0"
+    },
+    "repositories": {
+        "magento": {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "magento/composer-dependency-version-audit-plugin": true
         }
     }
 }

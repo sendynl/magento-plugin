@@ -1,0 +1,88 @@
+//
+//  Variables
+//  ____________________________________________
+@es__pp__border__color__primary: #d9d9d9;
+@es__pp__border__color__secondary: #183051;
+
+//
+//  Edifference Sendy Pickup Point module
+//  ____________________________________________
+.pickup-select {
+    display: inline-block;
+    margin: 2rem 0;
+    padding: 2rem 0;
+    border-top: 1px solid @es__pp__border__color__primary;
+    border-bottom: 1px solid @es__pp__border__color__primary;
+    width: 100%;
+
+    &__listing,
+    &__item {
+        list-style: none;
+    }
+
+    &__listing {
+        box-sizing: border-box;
+        float: left;
+        padding: 0 0 10px;
+        width: 100%;
+    }
+
+    &__item {
+        box-sizing: border-box;
+        float: left;
+        margin-bottom: 0;
+        width: 100%;
+
+        &:last-child {
+            .point {
+                border-bottom: 0;
+            }
+        }
+
+        .point {
+            border-bottom: 1px solid @es__pp__border__color__primary;
+            box-sizing: border-box;
+            float: left;
+            padding: 20px;
+            position: relative;
+            width: 100%;
+
+            &.checked {
+                border: 1px solid @es__pp__border__color__secondary;
+            }
+
+            &__header {
+                display: inline-flex;
+                width: 100%;
+            }
+
+            &__title {
+                display: inline-block;
+                width: 75%;
+
+                h4 {
+                    margin: 0;
+                    padding-bottom: 1.5rem;
+                }
+            }
+
+            &__carrier {
+                display: inline-block;
+                text-align: right;
+                width: 25%;
+            }
+        }
+    }
+
+    .select-carrier,
+    .selected-pickup-point {
+        display: block;
+        margin: 2rem 0;
+    }
+
+    .message {
+        &.notice {
+            margin: 2rem 0;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+<?php
+use Edifference\Sendy\Block\Adminhtml\Order\View\ShippingLabel;
+
+/** @var ShippingLabel $block */
+if (!$block->hasLabelUuid()) {
+    return;
+}
+?>
+<section class="admin__page-section order-addresses">
+    <div class="admin__page-section-title">
+        <span class="title"><?= /* @noEscape */ __('Shipping Label') ?></span>
+    </div>
+    <div class="admin__page-section-item-content">
+        <a href="<?= $escaper->escapeUrl($block->getDownloadUrl()); ?>">
+            Download <?= /* @noEscape */ __(' Shipping Labels'); ?>
+        </a>
+    </div>
+</section>

@@ -1,0 +1,32 @@
+<?php
+use Edifference\Sendy\Block\Adminhtml\Order\View\ShippingModal;
+
+/** @var ShippingModal $block */
+?>
+<div id="sendy-modal" data-block="sendy-modal" class="ui-dialog-content ui-widget-content" style="display: none">
+    <form action="<?= $escaper->escapeUrl($block->getFormUrl())?>" method="get"
+          id="order-view-sendy-shipping-form">
+        <label>
+            <span class="shipping-form-label"><?= /* @noEscape */ __('Amount of packages') ?>:</span>
+            <input class="package-qty" name="package_qty" value="1" type="number" min="0"><br />
+        </label>
+        <label>
+            <span class="shipping-form-label"><?= /* @noEscape */ __('Shipping preference') ?>:</span>
+            <select name="preference">
+                <?php foreach ($block->getPreferences() as $preference): ?>
+                    <option value="<?= /* @noEscape */ $preference['uuid']; ?>">
+                        <?= /* @noEscape */ $preference['name']; ?>
+                    </option>
+                <?php endforeach ?>
+            </select>
+        </label>
+    </form>
+</div>
+<script type="text/x-magento-init">
+    {
+        "[data-block='sendy-modal']": {
+            "Edifference_Sendy/js/sendy-modal": <?= /* @noEscape */ $block->getJsLayout() ?>
+    }
+}
+</script>
+

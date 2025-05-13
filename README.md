@@ -22,6 +22,10 @@ find [Sendy][marketplace].
 ## Configuration
 1. Log in to Magento Admin
 2. Go to Stores > Configuration > Sendy and configure settings
+3. Connect to the Sendy application
+
+   After enabling the module, you must connect the magento module to the sendy application with oauth.
+   Press the “connect to sendy” link to go to the sendy application. There you will need to authorize your magento store. After this you can start using the sendy module in your magento store.
 
 [sendy]: https://sendy.nl
-[marketplace]: https://marketplace.magento.com/
+[marketplace]: https://commercemarketplace.adobe.com/edifference-sendy.html
