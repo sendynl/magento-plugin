@@ -49,3 +49,7 @@
 ## [1.0.9] - 2025-05-13
 ### Fixes
 - Catch shipment.generated webhook
+
+## [1.0.10] - 2025-06-11
+### Feature
+- Add sendy package numbers to the order overview

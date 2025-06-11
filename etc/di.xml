@@ -30,6 +30,13 @@
             </argument>
         </arguments>
     </type>
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="sendy_packages" xsi:type="string">sales_order.sendy_packages</item>
+            </argument>
+        </arguments>
+    </virtualType>
     <preference for="Edifference\Sendy\Api\Data\EventInterface" type="Edifference\Sendy\Model\Event"/>
     <preference for="Edifference\Sendy\Api\EventRepositoryInterface" type="Edifference\Sendy\Model\EventRepository" />
     <preference for="Edifference\Sendy\Api\Data\EventInterface" type="Edifference\Sendy\Model\Event" />

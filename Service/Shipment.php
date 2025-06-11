@@ -30,6 +30,7 @@ use Magento\Framework\Exception\LocalizedException;
 class Shipment
 {
     public const COLUMN_LABEL_UUID = 'sendy_label_uuid';
+    public const COLUMN_PACKAGES = 'sendy_packages';
 
     public const MINIMUM_WEIGHT = 0.1;
 
@@ -117,12 +118,14 @@ class Shipment
             $shipmentList = $shipments->getItems();
             // Add the tracking information to the last existing shipment of this order
             $this->addTrackingForShipment(
+                $order,
                 end($shipmentList),
                 $shipmentData
             );
             return $shipmentData;
         }
         $this->addTrackingForShipment(
+            $order,
             $this->createShipmentForOrder($order),
             $shipmentData
         );
@@ -284,25 +287,31 @@ class Shipment
     /**
      * Add tracking data for shipment
      *
+     * @param OrderInterface    $order
      * @param ShipmentInterface $shipment
      * @param array             $shipmentData
      * @return void
      */
     private function addTrackingForShipment(
+        OrderInterface    $order,
         ShipmentInterface $shipment,
         array             $shipmentData
     ): void {
         if (!is_array($shipmentData['packages'])) {
             return;
         }
+        $packageList = (array)($order->getData(self::COLUMN_PACKAGES));
         foreach ($shipmentData['packages'] as $package) {
             $track = $this->trackFactory->create();
             $track->setCarrierCode($shipmentData['carrier_tag']);
             $track->setTitle($shipmentData['carrier']);
             $track->setTrackNumber($package['package_number']);
+            $packageList[] = $package['package_number'];
             $shipment->addTrack($track);
         }
         $this->shipmentRepository->save($shipment);
+        $order->setData(self::COLUMN_PACKAGES, implode(' / ', $packageList));
+        $this->orderRepository->save($order);
     }
 
     /**

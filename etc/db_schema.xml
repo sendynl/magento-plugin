@@ -16,6 +16,10 @@
     <table name="sales_order">
         <column xsi:type="varchar" name="sendy_label_uuid" nullable="true" comment="Sendy Label UUID"/>
         <column xsi:type="varchar" length="64" name="sendy_pickuppoint" nullable="true" comment="Sendy pickup point"/>
+        <column xsi:type="varchar" name="sendy_packages" nullable="true" comment="Sendy package numbers"/>
+    </table>
+    <table name="sales_order_grid">
+        <column xsi:type="varchar" name="sendy_packages" nullable="true" comment="Sendy package numbers"/>
     </table>
     <table name="quote">
         <column xsi:type="varchar" length="64" name="sendy_pickuppoint" nullable="true" comment="Sendy pickup point"/>

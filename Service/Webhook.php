@@ -163,6 +163,7 @@ class Webhook implements WebhookInterface
                 case 'shipment.deleted':
                     $order = $this->getOrder($data->getId());
                     $order->setData(Shipment::COLUMN_LABEL_UUID);
+                    $order->setData(Shipment::COLUMN_PACKAGES);
                     $this->orderRepository->save($order);
 
                     // Remove tracking information from shipments

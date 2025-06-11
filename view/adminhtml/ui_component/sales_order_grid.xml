@@ -32,4 +32,12 @@
             </action>
         </massaction>
     </listingToolbar>
+    <columns name="sales_order_columns">
+        <column name="sendy_packages">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Sendy packages</label>
+            </settings>
+        </column>
+    </columns>
 </listing>
