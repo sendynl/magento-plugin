@@ -33,6 +33,7 @@
     <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid">
         <arguments>
             <argument name="columns" xsi:type="array">
+                <item name="sendy_label_uuid" xsi:type="string">sales_order.sendy_label_uuid</item>
                 <item name="sendy_packages" xsi:type="string">sales_order.sendy_packages</item>
             </argument>
         </arguments>

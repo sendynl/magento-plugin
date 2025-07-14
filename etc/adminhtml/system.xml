@@ -57,11 +57,16 @@
                 </depends>
             </group>
             <group id="import" translate="label" type="text" sortOrder="40" showInDefault="1" showInStore="1">
-                <label>Import Weight</label>
+                <label>Import Settings</label>
                 <field id="import_weight" translate="label comment" type="select" sortOrder="10" showInDefault="1">
                     <label>Import weight when creating a shipment</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Enable or disable the import of weight when creating a shipment</comment>
+                </field>
+                <field id="import_products" translate="label comment" type="select" sortOrder="10" showInDefault="1">
+                    <label>Import products when creating a shipment</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the import of products when creating a shipment</comment>
                 </field>
                 <depends>
                     <field id="edifference_sendy/general/enable">1</field>

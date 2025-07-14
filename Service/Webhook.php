@@ -153,11 +153,11 @@ class Webhook implements WebhookInterface
                         $this->getOrder($data->getId()),
                         $this->api->getSendyConnection()->shipment->get($data->getId())
                     );
-                    break;
-                case 'shipment.delivered':
                     $this->shipmentService->setOrderStatus(
                         $this->getOrder($data->getId())
                     );
+                    break;
+                case 'shipment.delivered':
                     break;
                 case 'shipment.cancelled':
                 case 'shipment.deleted':

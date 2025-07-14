@@ -2,6 +2,11 @@
 <!-- app/code/Vendor/ModuleName/etc/config.xml -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/config.xsd">
     <default>
+        <edifference_sendy>
+            <import>
+                <import_products>1</import_products>
+            </import>
+        </edifference_sendy>
         <carriers>
             <sendypickuppoint_postnl>
                 <active>0</active>

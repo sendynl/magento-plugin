@@ -53,3 +53,8 @@
 ## [1.0.10] - 2025-06-11
 ### Feature
 - Add sendy package numbers to the order overview
+
+## [1.0.11] - 2025-07-08
+### Feature
+- Add link to the sendy application for sendy packages
+

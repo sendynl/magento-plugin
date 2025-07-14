@@ -21,6 +21,7 @@ class Config
     public const CONFIG_PATH_MODULE_ENABLED = 'edifference_sendy/general/enable';
     public const CONFIG_PATH_SENDY_SHOP = 'edifference_sendy/shipping_labels/sendy_shop';
     public const CONFIG_PATH_IMPORT_WEIGHT = 'edifference_sendy/import/import_weight';
+    public const CONFIG_PATH_IMPORT_PRODUCTS = 'edifference_sendy/import/import_products';
     public const CONFIG_PATH_SHOP_URL = 'edifference_sendy/shop_url';
     public const CONFIG_PATH_CLIENT_ID = 'edifference_sendy/client_id';
     public const CONFIG_PATH_SECRET = 'edifference_sendy/secret';
@@ -111,6 +112,18 @@ class Config
     public function isImportWeightEnabled(StoreInterface|int|string $store = null): bool
     {
         return $this->getValue(self::CONFIG_PATH_IMPORT_WEIGHT, $store) === '1';
+    }
+
+    /**
+     * Is import products enabled
+     *
+     * @param integer|string|StoreInterface|null $store
+     * @return boolean
+     * @throws NotFoundException
+     */
+    public function isImportProductsEnabled(StoreInterface|int|string $store = null): bool
+    {
+        return $this->getValue(self::CONFIG_PATH_IMPORT_PRODUCTS, $store) === '1';
     }
 
     /**

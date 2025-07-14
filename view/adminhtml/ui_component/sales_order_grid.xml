@@ -33,10 +33,11 @@
         </massaction>
     </listingToolbar>
     <columns name="sales_order_columns">
-        <column name="sendy_packages">
+        <column name="sendy_packages" class="Edifference\Sendy\Ui\Component\Listing\Column\Packages">
             <settings>
                 <filter>text</filter>
-                <label translate="true">Sendy packages</label>
+                <label translate="true">Track &amp; Trace</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
             </settings>
         </column>
     </columns>

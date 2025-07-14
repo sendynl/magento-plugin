@@ -7,6 +7,8 @@ use DateTime;
 use Edifference\Sendy\Model\Config;
 use Edifference\Sendy\Model\Data\Shipment as ShipmentData;
 use Edifference\Sendy\Model\Data\ShipmentFactory;
+use Edifference\Sendy\Model\Data\Shipment\Product as ShipmentProductData;
+use Edifference\Sendy\Model\Data\Shipment\ProductFactory;
 use GuzzleHttp\Exception\GuzzleException;
 use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Magento\Framework\Exception\NotFoundException;
@@ -37,6 +39,7 @@ class Shipment
     /**
      * @param Api                          $apiService
      * @param ShipmentFactory              $shipmentFactory
+     * @param ProductFactory               $productFactory
      * @param Config                       $config
      * @param OrderRepositoryInterface     $orderRepository
      * @param TrackFactory                 $trackFactory
@@ -49,6 +52,7 @@ class Shipment
     public function __construct(
         private readonly Api                          $apiService,
         private readonly ShipmentFactory              $shipmentFactory,
+        private readonly ProductFactory               $productFactory,
         private readonly Config                       $config,
         private readonly OrderRepositoryInterface     $orderRepository,
         private readonly TrackFactory                 $trackFactory,
@@ -198,10 +202,8 @@ class Shipment
             ->setWeight($this->getWeight($order))
             ->setAmount($packageQty)
             ->setOrderDate($this->timezone->date(new DateTime($order->getCreatedAt()))->format('c'));
-        $this->setShipmentRequestAddressData(
-            $shipment,
-            $street
-        );
+        $this->setShipmentRequestAddressData($shipment, $street);
+        $this->setShipmentProductData($shipment, $order);
         if ($order->getData(Pickuppoint::PICKUPPOINT_COLUMN_NAME)) {
             $shipment->setOptions([
                 'parcel_shop_id' => $order->getData(Pickuppoint::PICKUPPOINT_COLUMN_NAME),
@@ -235,6 +237,37 @@ class Shipment
             return;
         }
         $shipment->setAddition($street[2] . ' ' . $street[3]);
+    }
+
+    /**
+     * Set the shipment product data for this shipment
+     *
+     * @param ShipmentData   $shipment
+     * @param OrderInterface $order
+     * @return void
+     */
+    private function setShipmentProductData(ShipmentData $shipment, OrderInterface $order)
+    {
+        if (!$this->config->isImportProductsEnabled()) {
+            return;
+        }
+        $productList = [];
+        foreach ($order->getItems() as $item) {
+            if ($item->getParentItem()) {
+                continue;
+            }
+            /** @var ShipmentProductData $productData */
+            $productData = $this->productFactory->create();
+            $productData->setSku($item->getSku());
+            $productData->setDescription($item->getName());
+            $productData->setQuantity((int)$item->getQtyOrdered());
+            $productData->setUnitWeight((float)($item->getWeight() ?? self::MINIMUM_WEIGHT));
+            $productData->setUnitPrice($item->getPrice());
+
+            $productList[] = $productData->toArray();
+        }
+
+        $shipment->setProducts($productList);
     }
 
     /**

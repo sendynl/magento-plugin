@@ -19,6 +19,7 @@
         <column xsi:type="varchar" name="sendy_packages" nullable="true" comment="Sendy package numbers"/>
     </table>
     <table name="sales_order_grid">
+        <column xsi:type="varchar" name="sendy_label_uuid" nullable="true" comment="Sendy Label UUID"/>
         <column xsi:type="varchar" name="sendy_packages" nullable="true" comment="Sendy package numbers"/>
     </table>
     <table name="quote">
