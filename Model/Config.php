@@ -55,7 +55,7 @@ class Config
      * @param integer|string|StoreInterface|null $store
      * @return boolean
      */
-    public function isModuleEnabled(StoreInterface|int|string $store = null): bool
+    public function isModuleEnabled(StoreInterface|int|string|null $store = null): bool
     {
         try {
             return $this->getValue(self::CONFIG_PATH_MODULE_ENABLED, $store) === '1';
@@ -109,7 +109,7 @@ class Config
      * @return boolean
      * @throws NotFoundException
      */
-    public function isImportWeightEnabled(StoreInterface|int|string $store = null): bool
+    public function isImportWeightEnabled(StoreInterface|int|string|null $store = null): bool
     {
         return $this->getValue(self::CONFIG_PATH_IMPORT_WEIGHT, $store) === '1';
     }
@@ -121,7 +121,7 @@ class Config
      * @return boolean
      * @throws NotFoundException
      */
-    public function isImportProductsEnabled(StoreInterface|int|string $store = null): bool
+    public function isImportProductsEnabled(StoreInterface|int|string|null $store = null): bool
     {
         return $this->getValue(self::CONFIG_PATH_IMPORT_PRODUCTS, $store) === '1';
     }
@@ -210,7 +210,7 @@ class Config
      * @return string
      * @throws NotFoundException
      */
-    public function getSendyShop(StoreInterface|int|string $store = null): string
+    public function getSendyShop(StoreInterface|int|string|null $store = null): string
     {
         return $this->getValue(self::CONFIG_PATH_SENDY_SHOP, $store) ?? '';
     }
@@ -222,7 +222,7 @@ class Config
      * @return string
      * @throws NotFoundException
      */
-    public function getProcessingMethod(StoreInterface|int|string $store = null): string
+    public function getProcessingMethod(StoreInterface|int|string|null $store = null): string
     {
         return $this->getValue(self::CONFIG_PATH_PROCESSING_METHOD, $store) ?? '';
     }
@@ -234,7 +234,7 @@ class Config
      * @return string
      * @throws NotFoundException
      */
-    public function getProcessingOrderStatus(StoreInterface|int|string $store = null): string
+    public function getProcessingOrderStatus(StoreInterface|int|string|null $store = null): string
     {
         return $this->getValue(self::CONFIG_PATH_PROCESSING_ORDER_STATUS, $store) ?? '';
     }
@@ -246,7 +246,7 @@ class Config
      * @return string
      * @throws NotFoundException
      */
-    public function getWebhookId(StoreInterface|int|string $store = null): string
+    public function getWebhookId(StoreInterface|int|string|null $store = null): string
     {
         return $this->getValue(self::CONFIG_PATH_WEBHOOK_ID, $store) ?? '';
     }
@@ -271,7 +271,7 @@ class Config
      * @param integer|string|StoreInterface|null $store
      * @return boolean
      */
-    public function isOrderStatusUpdateEnabled(StoreInterface|int|string $store = null): bool
+    public function isOrderStatusUpdateEnabled(StoreInterface|int|string|null $store = null): bool
     {
         try {
             if (empty($this->getValue(self::CONFIG_PATH_ORDER_STATUS_UPDATE_ENABLED, $store))) {
@@ -293,7 +293,7 @@ class Config
      * @return string
      * @throws NotFoundException
      */
-    public function getOrderStatus(StoreInterface|int|string $store = null): string
+    public function getOrderStatus(StoreInterface|int|string|null $store = null): string
     {
         return $this->getValue(self::CONFIG_PATH_ORDER_STATUS, $store) ?? '';
     }
@@ -308,7 +308,7 @@ class Config
      */
     private function getValue(
         string $path,
-        StoreInterface|int|string $store = null
+        StoreInterface|int|string|null $store = null
     ): mixed {
         $value = $this->scopeConfig->getValue(
             $path,
