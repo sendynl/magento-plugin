@@ -72,7 +72,7 @@ class ConnectionPlugin
      * @param Connection          $subject
      * @param callable            $proceed
      * @param UriInterface|string $url
-     * @param ?array              $body
+     * @param array|null          $body
      * @param array               $params
      * @param array               $headers
      * @return array
@@ -81,7 +81,7 @@ class ConnectionPlugin
         Connection $subject,
         callable   $proceed,
         $url,
-        array      $body = null,
+        ?array     $body = null,
         array      $params = [],
         array      $headers = []
     ): array {
@@ -135,7 +135,7 @@ class ConnectionPlugin
     private function logRequest(
         callable   $proceed,
         $url,
-        array      $body = null,
+        ?array     $body = null,
         array      $params = [],
         array      $headers = []
     ): array {

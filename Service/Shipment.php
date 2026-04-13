@@ -230,6 +230,7 @@ class Shipment
         }
         $shipment->setNumber($street[1]);
         if (!array_key_exists(2, $street)) {
+            $shipment->parseAndSetNumber($street[1]);
             return;
         }
         $shipment->setAddition($street[2]);

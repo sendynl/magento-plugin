@@ -58,3 +58,10 @@
 ### Feature
 - Add link to the sendy application for sendy packages
 
+## [1.0.12] - 2025-07-23
+### Improvements
+- Improve address parsing
+
+## [1.0.13] - 2025-07-28
+### Improvements
+- PHP8.4 compatibility
