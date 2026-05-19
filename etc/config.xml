@@ -6,6 +6,9 @@
             <import>
                 <import_products>1</import_products>
             </import>
+            <shipping_labels>
+                <auto_download>0</auto_download>
+            </shipping_labels>
         </edifference_sendy>
         <carriers>
             <sendypickuppoint_postnl>

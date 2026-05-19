@@ -11,8 +11,22 @@ if (!$block->hasLabelUuid()) {
         <span class="title"><?= /* @noEscape */ __('Shipping Label') ?></span>
     </div>
     <div class="admin__page-section-item-content">
-        <a href="<?= $escaper->escapeUrl($block->getDownloadUrl()); ?>">
+        <a id="download_shipping_labels" href="<?= $escaper->escapeUrl($block->getDownloadUrl()); ?>">
             Download <?= /* @noEscape */ __(' Shipping Labels'); ?>
         </a>
     </div>
 </section>
+<script>
+    require(['jquery', 'domReady!'], function ($) {
+        'use strict';
+
+        setTimeout(function() {
+            var path = window.location.pathname;
+            if (path.match(/\/auto_download\/1(\/|$)/)) {
+                document.getElementById('download_shipping_labels').click();
+                var cleanPath = path.replace(/\/auto_download\/1\/?/, '/');
+                window.history.replaceState(null, '', cleanPath);
+            }
+        }, 500);
+    });
+</script>

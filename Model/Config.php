@@ -20,6 +20,7 @@ class Config
 {
     public const CONFIG_PATH_MODULE_ENABLED = 'edifference_sendy/general/enable';
     public const CONFIG_PATH_SENDY_SHOP = 'edifference_sendy/shipping_labels/sendy_shop';
+    public const CONFIG_PATH_AUTO_DOWNLOAD = 'edifference_sendy/shipping_labels/auto_download';
     public const CONFIG_PATH_IMPORT_WEIGHT = 'edifference_sendy/import/import_weight';
     public const CONFIG_PATH_IMPORT_PRODUCTS = 'edifference_sendy/import/import_products';
     public const CONFIG_PATH_SHOP_URL = 'edifference_sendy/shop_url';
@@ -97,6 +98,21 @@ class Config
     {
         try {
             return $this->getShopUrl() === $this->backendUrl->getBaseUrl();
+        } catch (NotFoundException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Is auto download after label creation enabled
+     *
+     * @param integer|string|StoreInterface|null $store
+     * @return boolean
+     */
+    public function isAutoDownloadEnabled(StoreInterface|int|string|null $store = null): bool
+    {
+        try {
+            return $this->getValue(self::CONFIG_PATH_AUTO_DOWNLOAD, $store) === '1';
         } catch (NotFoundException $e) {
             return false;
         }
