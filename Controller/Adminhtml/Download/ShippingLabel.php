@@ -17,7 +17,7 @@ class ShippingLabel extends AbstractShippingLabel
      * @return ResponseInterface|ResultInterface
      * @throws GuzzleException
      */
-    public function execute(): ResponseInterface|ResultInterface
+    public function execute()
     {
         $orderId = $this->getRequest()->getParam('order_id');
         if (!$orderId) {

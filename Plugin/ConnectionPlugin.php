@@ -16,16 +16,26 @@ use Throwable;
  */
 class ConnectionPlugin
 {
+    /** @var EventRepositoryInterface */
+    private EventRepositoryInterface $eventRepository;
+    /** @var EventInterfaceFactory */
+    private EventInterfaceFactory $eventInterfaceFactory;
+    /** @var Json */
+    private Json $json;
+
     /**
      * @param EventRepositoryInterface $eventRepository
      * @param EventInterfaceFactory    $eventInterfaceFactory
      * @param Json                     $json
      */
     public function __construct(
-        private readonly EventRepositoryInterface $eventRepository,
-        private readonly EventInterfaceFactory    $eventInterfaceFactory,
-        private readonly Json                     $json
+        EventRepositoryInterface $eventRepository,
+        EventInterfaceFactory    $eventInterfaceFactory,
+        Json                     $json
     ) {
+        $this->eventRepository = $eventRepository;
+        $this->eventInterfaceFactory = $eventInterfaceFactory;
+        $this->json = $json;
     }
 
     /**
@@ -72,7 +82,7 @@ class ConnectionPlugin
      * @param Connection          $subject
      * @param callable            $proceed
      * @param UriInterface|string $url
-     * @param array|null          $body
+     * @param ?array              $body
      * @param array               $params
      * @param array               $headers
      * @return array
@@ -81,7 +91,7 @@ class ConnectionPlugin
         Connection $subject,
         callable   $proceed,
         $url,
-        ?array     $body = null,
+        array      $body = null,
         array      $params = [],
         array      $headers = []
     ): array {
@@ -135,7 +145,7 @@ class ConnectionPlugin
     private function logRequest(
         callable   $proceed,
         $url,
-        ?array     $body = null,
+        array      $body = null,
         array      $params = [],
         array      $headers = []
     ): array {

@@ -20,7 +20,6 @@ class Config
 {
     public const CONFIG_PATH_MODULE_ENABLED = 'edifference_sendy/general/enable';
     public const CONFIG_PATH_SENDY_SHOP = 'edifference_sendy/shipping_labels/sendy_shop';
-    public const CONFIG_PATH_AUTO_DOWNLOAD = 'edifference_sendy/shipping_labels/auto_download';
     public const CONFIG_PATH_IMPORT_WEIGHT = 'edifference_sendy/import/import_weight';
     public const CONFIG_PATH_IMPORT_PRODUCTS = 'edifference_sendy/import/import_products';
     public const CONFIG_PATH_SHOP_URL = 'edifference_sendy/shop_url';
@@ -35,6 +34,14 @@ class Config
     public const CONFIG_PATH_PROCESSING_METHOD = 'edifference_sendy/processing/method';
     public const CONFIG_PATH_PROCESSING_ORDER_STATUS = 'edifference_sendy/processing/order_status';
     public const CONFIG_PATH_WEBHOOK_ID = 'edifference_sendy/processing/webhook_id';
+    /** @var ScopeConfigInterface */
+    private ScopeConfigInterface $scopeConfig;
+    /** @var StoreManagerInterface */
+    private StoreManagerInterface $storeManager;
+    /** @var UrlInterface */
+    private UrlInterface $urlBuilder;
+    /** @var BackendUrlInterface */
+    private BackendUrlInterface $backendUrl;
 
     /**
      * @param ScopeConfigInterface  $scopeConfig
@@ -43,11 +50,15 @@ class Config
      * @param BackendUrlInterface   $backendUrl
      */
     public function __construct(
-        private readonly ScopeConfigInterface  $scopeConfig,
-        private readonly StoreManagerInterface $storeManager,
-        private readonly UrlInterface $urlBuilder,
-        private readonly BackendUrlInterface $backendUrl
+        ScopeConfigInterface  $scopeConfig,
+        StoreManagerInterface $storeManager,
+        UrlInterface $urlBuilder,
+        BackendUrlInterface $backendUrl
     ) {
+        $this->scopeConfig = $scopeConfig;
+        $this->storeManager = $storeManager;
+        $this->urlBuilder = $urlBuilder;
+        $this->backendUrl = $backendUrl;
     }
 
     /**
@@ -56,7 +67,7 @@ class Config
      * @param integer|string|StoreInterface|null $store
      * @return boolean
      */
-    public function isModuleEnabled(StoreInterface|int|string|null $store = null): bool
+    public function isModuleEnabled($store = null): bool
     {
         try {
             return $this->getValue(self::CONFIG_PATH_MODULE_ENABLED, $store) === '1';
@@ -104,28 +115,13 @@ class Config
     }
 
     /**
-     * Is auto download after label creation enabled
-     *
-     * @param integer|string|StoreInterface|null $store
-     * @return boolean
-     */
-    public function isAutoDownloadEnabled(StoreInterface|int|string|null $store = null): bool
-    {
-        try {
-            return $this->getValue(self::CONFIG_PATH_AUTO_DOWNLOAD, $store) === '1';
-        } catch (NotFoundException $e) {
-            return false;
-        }
-    }
-
-    /**
      * Is import weight enabled
      *
      * @param integer|string|StoreInterface|null $store
      * @return boolean
      * @throws NotFoundException
      */
-    public function isImportWeightEnabled(StoreInterface|int|string|null $store = null): bool
+    public function isImportWeightEnabled($store = null): bool
     {
         return $this->getValue(self::CONFIG_PATH_IMPORT_WEIGHT, $store) === '1';
     }
@@ -137,7 +133,7 @@ class Config
      * @return boolean
      * @throws NotFoundException
      */
-    public function isImportProductsEnabled(StoreInterface|int|string|null $store = null): bool
+    public function isImportProductsEnabled(StoreInterface|int|string $store = null): bool
     {
         return $this->getValue(self::CONFIG_PATH_IMPORT_PRODUCTS, $store) === '1';
     }
@@ -226,7 +222,7 @@ class Config
      * @return string
      * @throws NotFoundException
      */
-    public function getSendyShop(StoreInterface|int|string|null $store = null): string
+    public function getSendyShop($store = null): string
     {
         return $this->getValue(self::CONFIG_PATH_SENDY_SHOP, $store) ?? '';
     }
@@ -238,7 +234,7 @@ class Config
      * @return string
      * @throws NotFoundException
      */
-    public function getProcessingMethod(StoreInterface|int|string|null $store = null): string
+    public function getProcessingMethod(StoreInterface|int|string $store = null): string
     {
         return $this->getValue(self::CONFIG_PATH_PROCESSING_METHOD, $store) ?? '';
     }
@@ -250,7 +246,7 @@ class Config
      * @return string
      * @throws NotFoundException
      */
-    public function getProcessingOrderStatus(StoreInterface|int|string|null $store = null): string
+    public function getProcessingOrderStatus(StoreInterface|int|string $store = null): string
     {
         return $this->getValue(self::CONFIG_PATH_PROCESSING_ORDER_STATUS, $store) ?? '';
     }
@@ -262,7 +258,7 @@ class Config
      * @return string
      * @throws NotFoundException
      */
-    public function getWebhookId(StoreInterface|int|string|null $store = null): string
+    public function getWebhookId(StoreInterface|int|string $store = null): string
     {
         return $this->getValue(self::CONFIG_PATH_WEBHOOK_ID, $store) ?? '';
     }
@@ -287,7 +283,7 @@ class Config
      * @param integer|string|StoreInterface|null $store
      * @return boolean
      */
-    public function isOrderStatusUpdateEnabled(StoreInterface|int|string|null $store = null): bool
+    public function isOrderStatusUpdateEnabled(StoreInterface|int|string $store = null): bool
     {
         try {
             if (empty($this->getValue(self::CONFIG_PATH_ORDER_STATUS_UPDATE_ENABLED, $store))) {
@@ -309,7 +305,7 @@ class Config
      * @return string
      * @throws NotFoundException
      */
-    public function getOrderStatus(StoreInterface|int|string|null $store = null): string
+    public function getOrderStatus(StoreInterface|int|string $store = null): string
     {
         return $this->getValue(self::CONFIG_PATH_ORDER_STATUS, $store) ?? '';
     }
@@ -324,8 +320,8 @@ class Config
      */
     private function getValue(
         string $path,
-        StoreInterface|int|string|null $store = null
-    ): mixed {
+        $store = null
+    ) {
         $value = $this->scopeConfig->getValue(
             $path,
             ScopeInterface::SCOPE_STORE,
@@ -348,7 +344,7 @@ class Config
      * @param integer|string|StoreInterface|null $store
      * @return integer|null
      */
-    protected function getStoreId(StoreInterface|int|string|null $store): ?int
+    protected function getStoreId($store): ?int
     {
         try {
             return (int)$this->storeManager->getStore($store)->getId();

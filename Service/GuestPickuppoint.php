@@ -9,14 +9,21 @@ use Magento\Quote\Model\QuoteIdMaskFactory;
 
 class GuestPickuppoint implements GuestPickuppointInterface
 {
+    /** @var QuoteIdMaskFactory */
+    private QuoteIdMaskFactory $quoteIdMaskFactory;
+    /** @var Pickuppoint */
+    private Pickuppoint $pickuppoint;
+
     /**
      * @param QuoteIdMaskFactory $quoteIdMaskFactory
      * @param Pickuppoint        $pickuppoint
      */
     public function __construct(
-        private readonly QuoteIdMaskFactory $quoteIdMaskFactory,
-        private readonly Pickuppoint        $pickuppoint,
+        QuoteIdMaskFactory $quoteIdMaskFactory,
+        Pickuppoint        $pickuppoint
     ) {
+        $this->quoteIdMaskFactory = $quoteIdMaskFactory;
+        $this->pickuppoint = $pickuppoint;
     }
 
     /**

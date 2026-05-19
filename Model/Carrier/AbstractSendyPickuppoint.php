@@ -18,6 +18,11 @@ use Psr\Log\LoggerInterface;
  */
 abstract class AbstractSendyPickuppoint extends AbstractCarrier implements CarrierInterface
 {
+    /** @var ResultFactory */
+    private ResultFactory $rateResultFactory;
+    /** @var MethodFactory */
+    private MethodFactory $rateMethodFactory;
+
     /**
      * @param ScopeConfigInterface $scopeConfig
      * @param ErrorFactory         $rateErrorFactory
@@ -30,8 +35,8 @@ abstract class AbstractSendyPickuppoint extends AbstractCarrier implements Carri
         ScopeConfigInterface $scopeConfig,
         ErrorFactory $rateErrorFactory,
         LoggerInterface $logger,
-        private readonly ResultFactory $rateResultFactory,
-        private readonly MethodFactory $rateMethodFactory,
+        ResultFactory $rateResultFactory,
+        MethodFactory $rateMethodFactory,
         array $data = []
     ) {
         parent::__construct(
@@ -40,6 +45,8 @@ abstract class AbstractSendyPickuppoint extends AbstractCarrier implements Carri
             $logger,
             $data
         );
+        $this->rateResultFactory = $rateResultFactory;
+        $this->rateMethodFactory = $rateMethodFactory;
     }
 
     /**

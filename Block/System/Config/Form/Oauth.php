@@ -8,7 +8,6 @@ use Magento\Backend\Block\Template\Context;
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Magento\Framework\Exception\NotFoundException;
-use Magento\Framework\View\Helper\SecureHtmlRenderer;
 use Sendy\Api\ApiException;
 
 /**
@@ -17,24 +16,24 @@ use Sendy\Api\ApiException;
 class Oauth extends Field
 {
     private const BUTTON_TEMPLATE = 'system/config/oauth/button.phtml';
+    /** @var Api */
+    private Api $apiService;
 
     /**
      * @param Context                 $context
      * @param Api                     $apiService
      * @param array                   $data
-     * @param SecureHtmlRenderer|null $secureRenderer
      */
     public function __construct(
-        Context              $context,
-        private readonly Api $apiService,
-        array                $data = [],
-        ?SecureHtmlRenderer  $secureRenderer = null
+        Context             $context,
+        Api                 $apiService,
+        array               $data = []
     ) {
         parent::__construct(
             $context,
-            $data,
-            $secureRenderer
+            $data
         );
+        $this->apiService = $apiService;
     }
 
     /**

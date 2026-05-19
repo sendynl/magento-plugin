@@ -4,7 +4,7 @@ use Edifference\Sendy\Block\Adminhtml\Order\View\ShippingModal;
 /** @var ShippingModal $block */
 ?>
 <div id="sendy-modal" data-block="sendy-modal" class="ui-dialog-content ui-widget-content" style="display: none">
-    <form action="<?= $escaper->escapeUrl($block->getFormUrl())?>" method="get"
+    <form action="<?= $block->escapeUrl($block->getFormUrl())?>" method="get"
           id="order-view-sendy-shipping-form">
         <label>
             <span class="shipping-form-label"><?= /* @noEscape */ __('Amount of packages') ?>:</span>

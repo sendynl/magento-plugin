@@ -14,6 +14,13 @@ use Throwable;
 
 class MassCreate extends Action
 {
+    /** @var Shipment */
+    private Shipment $shipment;
+    /** @var Filter */
+    private Filter $filter;
+    /** @var CollectionFactory */
+    private CollectionFactory $collectionFactory;
+
     /**
      * @param Context           $context
      * @param Shipment          $shipment
@@ -21,12 +28,15 @@ class MassCreate extends Action
      * @param CollectionFactory $collectionFactory
      */
     public function __construct(
-        Context                            $context,
-        private readonly Shipment          $shipment,
-        private readonly Filter            $filter,
-        private readonly CollectionFactory $collectionFactory,
+        Context           $context,
+        Shipment          $shipment,
+        Filter            $filter,
+        CollectionFactory $collectionFactory
     ) {
         parent::__construct($context);
+        $this->shipment = $shipment;
+        $this->filter = $filter;
+        $this->collectionFactory = $collectionFactory;
     }
 
     /**

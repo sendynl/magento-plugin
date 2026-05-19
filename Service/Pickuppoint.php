@@ -12,15 +12,21 @@ use Magento\Quote\Api\CartRepositoryInterface;
 class Pickuppoint implements PickuppointInterface
 {
     public const PICKUPPOINT_COLUMN_NAME = 'sendy_pickuppoint';
+    /** @var JsonFactory */
+    private JsonFactory $jsonFactory;
+    /** @var CartRepositoryInterface */
+    private CartRepositoryInterface $cartRepository;
 
     /**
      * @param JsonFactory             $jsonFactory
      * @param CartRepositoryInterface $cartRepository
      */
     public function __construct(
-        private readonly JsonFactory             $jsonFactory,
-        private readonly CartRepositoryInterface $cartRepository
+        JsonFactory             $jsonFactory,
+        CartRepositoryInterface $cartRepository
     ) {
+        $this->jsonFactory = $jsonFactory;
+        $this->cartRepository = $cartRepository;
     }
 
     /**

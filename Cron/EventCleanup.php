@@ -15,6 +15,15 @@ use Magento\Framework\Exception\NoSuchEntityException;
  */
 class EventLogCleanup
 {
+    /** @var EventRepositoryInterface */
+    private EventRepositoryInterface $eventRepository;
+    /** @var SearchCriteriaBuilder */
+    private SearchCriteriaBuilder $searchCriteria;
+    /** @var FilterBuilder */
+    private FilterBuilder $filterBuilder;
+    /** @var FilterGroupBuilder */
+    private FilterGroupBuilder $filterGroupBuilder;
+
     /**
      * @param EventRepositoryInterface $eventRepository
      * @param SearchCriteriaBuilder    $searchCriteria
@@ -22,11 +31,15 @@ class EventLogCleanup
      * @param FilterGroupBuilder       $filterGroupBuilder
      */
     public function __construct(
-        private readonly EventRepositoryInterface $eventRepository,
-        private readonly SearchCriteriaBuilder $searchCriteria,
-        private readonly FilterBuilder $filterBuilder,
-        private readonly FilterGroupBuilder $filterGroupBuilder
+        EventRepositoryInterface $eventRepository,
+        SearchCriteriaBuilder $searchCriteria,
+        FilterBuilder $filterBuilder,
+        FilterGroupBuilder $filterGroupBuilder
     ) {
+        $this->eventRepository = $eventRepository;
+        $this->searchCriteria = $searchCriteria;
+        $this->filterBuilder = $filterBuilder;
+        $this->filterGroupBuilder = $filterGroupBuilder;
     }
 
     /**

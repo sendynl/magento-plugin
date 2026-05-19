@@ -20,6 +20,17 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 
 class EventRepository implements EventRepositoryInterface
 {
+    /** @var EventInterfaceFactory */
+    private EventInterfaceFactory $eventFactory;
+    /** @var EventSearchResultsInterfaceFactory */
+    private EventSearchResultsInterfaceFactory $searchResultsFactory;
+    /** @var EventCollectionFactory */
+    private EventCollectionFactory $eventCollectionFactory;
+    /** @var EntityManager */
+    private EntityManager $entityManager;
+    /** @var CollectionProcessorInterface */
+    private CollectionProcessorInterface $collectionProcessor;
+
     /**
      * @param EventInterfaceFactory              $eventFactory
      * @param EventSearchResultsInterfaceFactory $searchResultsFactory
@@ -28,12 +39,17 @@ class EventRepository implements EventRepositoryInterface
      * @param CollectionProcessorInterface       $collectionProcessor
      */
     public function __construct(
-        private readonly EventInterfaceFactory              $eventFactory,
-        private readonly EventSearchResultsInterfaceFactory $searchResultsFactory,
-        private readonly EventCollectionFactory             $eventCollectionFactory,
-        private readonly EntityManager                      $entityManager,
-        private readonly CollectionProcessorInterface       $collectionProcessor
+        EventInterfaceFactory              $eventFactory,
+        EventSearchResultsInterfaceFactory $searchResultsFactory,
+        EventCollectionFactory             $eventCollectionFactory,
+        EntityManager                      $entityManager,
+        CollectionProcessorInterface       $collectionProcessor
     ) {
+        $this->eventFactory = $eventFactory;
+        $this->searchResultsFactory = $searchResultsFactory;
+        $this->eventCollectionFactory = $eventCollectionFactory;
+        $this->entityManager = $entityManager;
+        $this->collectionProcessor = $collectionProcessor;
     }
 
     /**

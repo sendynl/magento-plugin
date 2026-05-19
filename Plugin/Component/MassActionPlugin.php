@@ -11,12 +11,16 @@ use Magento\Ui\Component\MassAction;
  */
 class MassActionPlugin
 {
+    /** @var Config */
+    private Config $config;
+
     /**
      * @param Config $config
      */
     public function __construct(
-        private readonly Config $config,
+        Config $config
     ) {
+        $this->config = $config;
     }
 
     /**

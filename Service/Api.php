@@ -21,6 +21,16 @@ class Api
      */
     public const BASE_URL = 'https://app.sendy.nl';
     public const INITIALIZE_PATH = '/plugin/initialize';
+    /** @var Config */
+    private Config $config;
+    /** @var Connection */
+    private Connection $sendyConnection;
+    /** @var WriterInterface */
+    private WriterInterface $configWriter;
+    /** @var TypeListInterface */
+    private TypeListInterface $cacheTypeList;
+    /** @var UrlInterface */
+    private UrlInterface $backendUrl;
 
     /**
      * @param Config            $config
@@ -30,12 +40,17 @@ class Api
      * @param UrlInterface      $backendUrl
      */
     public function __construct(
-        private readonly Config            $config,
-        private readonly Connection        $sendyConnection,
-        private readonly WriterInterface   $configWriter,
-        private readonly TypeListInterface $cacheTypeList,
-        private readonly UrlInterface      $backendUrl
+        Config            $config,
+        Connection        $sendyConnection,
+        WriterInterface   $configWriter,
+        TypeListInterface $cacheTypeList,
+        UrlInterface      $backendUrl
     ) {
+        $this->config = $config;
+        $this->sendyConnection = $sendyConnection;
+        $this->configWriter = $configWriter;
+        $this->cacheTypeList = $cacheTypeList;
+        $this->backendUrl = $backendUrl;
     }
 
     /**

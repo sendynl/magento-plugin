@@ -17,14 +17,21 @@ use Magento\Sales\Api\Data\OrderInterface;
  */
 class ToolbarPlugin
 {
+    /** @var Config */
+    private Config $config;
+    /** @var ShippingLabelDataProvider */
+    private ShippingLabelDataProvider $shippingLabelDataProvider;
+
     /**
      * @param Config                    $config
      * @param ShippingLabelDataProvider $shippingLabelDataProvider
      */
     public function __construct(
-        private readonly Config                    $config,
-        private readonly ShippingLabelDataProvider $shippingLabelDataProvider
+        Config                    $config,
+        ShippingLabelDataProvider $shippingLabelDataProvider
     ) {
+        $this->config = $config;
+        $this->shippingLabelDataProvider = $shippingLabelDataProvider;
     }
 
     /**
@@ -93,12 +100,16 @@ class ToolbarPlugin
         string        $nameInLayout,
         AbstractBlock $context
     ): ?OrderInterface {
-        return match ($nameInLayout) {
-            'sales_order_edit' => $context->getOrder(),
-            'sales_invoice_view' => $context->getInvoice()->getOrder(),
-            'sales_shipment_view' => $context->getShipment()->getOrder(),
-            'sales_creditmemo_view' => $context->getCreditmemo()->getOrder(),
-            default => null,
-        };
+        switch ($nameInLayout) {
+            case 'sales_order_edit':
+                return $context->getOrder();
+            case 'sales_invoice_view':
+                return $context->getInvoice()->getOrder();
+            case 'sales_shipment_view':
+                return $context->getShipment()->getOrder();
+            case 'sales_creditmemo_view':
+                return $context->getCreditmemo()->getOrder();
+        }
+        return null;
     }
 }

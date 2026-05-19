@@ -18,7 +18,7 @@ use Edifference\Sendy\Block\System\Config\Form\Oauth as Oauth;
             require([
                 'jquery',
             ], function($) {
-                var url = '<?= $escaper->escapeUrl($block->getClearUrl()) ?>';
+                var url = '<?= $block->escapeUrl($block->getClearUrl()) ?>';
                 $('#sendy-logout-button').on('click', function(event){
                     confirmSetLocation(
                         '<?= /* @noEscape */ __('Do you really want to logout this magento from Sendy?') ?>',
@@ -35,8 +35,8 @@ use Edifference\Sendy\Block\System\Config\Form\Oauth as Oauth;
         ); ?>
         </span><br/>
         <span><?= /* @noEscape */ __('Sometimes reconnecting might solve your issues:') ?></span>
-        <a href="<?= $escaper->escapeUrl($block->getRedirectUrl()) ?>">
-            <?= $escaper->escapeHtml($block->getConnectLabel()); ?>
+        <a href="<?= $block->escapeUrl($block->getRedirectUrl()) ?>">
+            <?= $block->escapeHtml($block->getConnectLabel()); ?>
         </a>
     <?php else: ?>
         <span>
@@ -44,8 +44,8 @@ use Edifference\Sendy\Block\System\Config\Form\Oauth as Oauth;
                 'To be able to use the Sendy plugin you will need to connect this shop to your Sendy account:'
             ) ?>
         </span>
-        <a href="<?= $escaper->escapeUrl($block->getRedirectUrl()) ?>">
-            <?= $escaper->escapeHtml($block->getConnectLabel()); ?>
+        <a href="<?= $block->escapeUrl($block->getRedirectUrl()) ?>">
+            <?= $block->escapeHtml($block->getConnectLabel()); ?>
         </a>
     <?php endif; ?>
 </div>

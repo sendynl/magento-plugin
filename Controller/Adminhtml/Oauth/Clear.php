@@ -19,6 +19,15 @@ use Throwable;
  */
 class Clear extends Action
 {
+    /** @var WriterInterface */
+    private WriterInterface $configWriter;
+    /** @var TypeListInterface */
+    private TypeListInterface $cacheTypeList;
+    /** @var RedirectFactory */
+    private RedirectFactory $redirectFactory;
+    /** @var Webhook */
+    private Webhook $webhookService;
+
     /**
      * @param Context           $context
      * @param WriterInterface   $configWriter
@@ -27,13 +36,17 @@ class Clear extends Action
      * @param Webhook           $webhookService
      */
     public function __construct(
-        Context $context,
-        private readonly WriterInterface   $configWriter,
-        private readonly TypeListInterface $cacheTypeList,
-        private readonly RedirectFactory   $redirectFactory,
-        private readonly Webhook           $webhookService
+        Context           $context,
+        WriterInterface   $configWriter,
+        TypeListInterface $cacheTypeList,
+        RedirectFactory   $redirectFactory,
+        Webhook           $webhookService
     ) {
         parent::__construct($context);
+        $this->configWriter = $configWriter;
+        $this->cacheTypeList = $cacheTypeList;
+        $this->redirectFactory = $redirectFactory;
+        $this->webhookService = $webhookService;
     }
 
     /**

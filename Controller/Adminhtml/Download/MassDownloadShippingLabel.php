@@ -18,6 +18,13 @@ use Magento\Ui\Component\MassAction\Filter;
 
 class MassDownloadShippingLabel extends AbstractShippingLabel
 {
+    /** @var Filter */
+    private Filter $filter;
+    /** @var CollectionFactory */
+    private CollectionFactory $collectionFactory;
+    /** @var DateTime */
+    private DateTime $dateTime;
+
     /**
      * @param Context                  $context
      * @param OrderRepositoryInterface $orderRepository
@@ -32,9 +39,9 @@ class MassDownloadShippingLabel extends AbstractShippingLabel
         OrderRepositoryInterface $orderRepository,
         Api $apiService,
         RawFactory $resultRawFactory,
-        private readonly Filter $filter,
-        private readonly CollectionFactory $collectionFactory,
-        private readonly DateTime $dateTime
+        Filter $filter,
+        CollectionFactory $collectionFactory,
+        DateTime $dateTime
     ) {
         parent::__construct(
             $context,
@@ -42,6 +49,9 @@ class MassDownloadShippingLabel extends AbstractShippingLabel
             $apiService,
             $resultRawFactory
         );
+        $this->filter = $filter;
+        $this->collectionFactory = $collectionFactory;
+        $this->dateTime = $dateTime;
     }
 
     /**
@@ -50,7 +60,7 @@ class MassDownloadShippingLabel extends AbstractShippingLabel
      * @return ResponseInterface|ResultInterface
      * @throws GuzzleException
      */
-    public function execute(): ResponseInterface|ResultInterface
+    public function execute()
     {
         try {
             $collection = $this->filter->getCollection($this->collectionFactory->create());

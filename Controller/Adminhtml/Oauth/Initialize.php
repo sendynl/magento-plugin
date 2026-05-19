@@ -23,6 +23,17 @@ use UnexpectedValueException;
  */
 class Initialize extends Action
 {
+    /** @var WriterInterface */
+    private WriterInterface $configWriter;
+    /** @var TypeListInterface */
+    private TypeListInterface $cacheTypeList;
+    /** @var Random */
+    private Random $random;
+    /** @var Config */
+    private Config $config;
+    /** @var RedirectFactory */
+    private RedirectFactory $redirectFactory;
+
     /**
      * @param Context           $context
      * @param WriterInterface   $configWriter
@@ -32,14 +43,19 @@ class Initialize extends Action
      * @param RedirectFactory   $redirectFactory
      */
     public function __construct(
-        Context                            $context,
-        private readonly WriterInterface   $configWriter,
-        private readonly TypeListInterface $cacheTypeList,
-        private readonly Random            $random,
-        private readonly Config            $config,
-        private readonly RedirectFactory   $redirectFactory
+        Context           $context,
+        WriterInterface   $configWriter,
+        TypeListInterface $cacheTypeList,
+        Random            $random,
+        Config            $config,
+        RedirectFactory   $redirectFactory
     ) {
         parent::__construct($context);
+        $this->configWriter = $configWriter;
+        $this->cacheTypeList = $cacheTypeList;
+        $this->random = $random;
+        $this->config = $config;
+        $this->redirectFactory = $redirectFactory;
     }
 
     /**

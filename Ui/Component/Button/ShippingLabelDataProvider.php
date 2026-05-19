@@ -12,12 +12,16 @@ use Magento\Sales\Api\Data\OrderInterface;
  */
 class ShippingLabelDataProvider
 {
+    /** @var LayoutInterface */
+    private LayoutInterface $layout;
+
     /**
      * @param LayoutInterface $layout
      */
     public function __construct(
-        private readonly LayoutInterface $layout
+        LayoutInterface $layout
     ) {
+        $this->layout = $layout;
     }
 
     /**

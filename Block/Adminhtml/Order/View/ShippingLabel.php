@@ -12,6 +12,13 @@ use Magento\Framework\UrlInterface;
 
 class ShippingLabel extends Template
 {
+    /** @var OrderRepositoryInterface */
+    private OrderRepositoryInterface $orderRepository;
+    /** @var UrlInterface */
+    private UrlInterface $urlBuilder;
+    /** @var Config */
+    private Config $config;
+
     /**
      * @param Context                  $context
      * @param OrderRepositoryInterface $orderRepository
@@ -20,13 +27,16 @@ class ShippingLabel extends Template
      * @param array                    $data
      */
     public function __construct(
-        Context                                   $context,
-        private readonly OrderRepositoryInterface $orderRepository,
-        private readonly UrlInterface             $urlBuilder,
-        private readonly Config                   $config,
-        array                                     $data = []
+        Context                  $context,
+        OrderRepositoryInterface $orderRepository,
+        UrlInterface             $urlBuilder,
+        Config                   $config,
+        array                    $data = []
     ) {
         parent::__construct($context, $data);
+        $this->orderRepository = $orderRepository;
+        $this->urlBuilder = $urlBuilder;
+        $this->config = $config;
     }
 
     /**

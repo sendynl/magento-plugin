@@ -35,6 +35,28 @@ class Shipment
     public const COLUMN_PACKAGES = 'sendy_packages';
 
     public const MINIMUM_WEIGHT = 0.1;
+    /** @var Api */
+    private Api $apiService;
+    /** @var ShipmentFactory */
+    private ShipmentFactory $shipmentFactory;
+    /** @var Config */
+    private Config $config;
+    /** @var OrderRepositoryInterface */
+    private OrderRepositoryInterface $orderRepository;
+    /** @var TrackFactory */
+    private TrackFactory $trackFactory;
+    /** @var ShipmentRepositoryInterface */
+    private ShipmentRepositoryInterface $shipmentRepository;
+    /** @var OrderConverter */
+    private OrderConverter $orderConverter;
+    /** @var TimezoneInterface */
+    private TimezoneInterface $timezone;
+    /** @var ProductFactory */
+    private ProductFactory $productFactory;
+    /** @var CollectionFactory */
+    private CollectionFactory $orderStatusCollectionFactory;
+    /** @var SearchCriteriaBuilderFactory */
+    private SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory;
 
     /**
      * @param Api                          $apiService
@@ -50,18 +72,29 @@ class Shipment
      * @param SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory
      */
     public function __construct(
-        private readonly Api                          $apiService,
-        private readonly ShipmentFactory              $shipmentFactory,
-        private readonly ProductFactory               $productFactory,
-        private readonly Config                       $config,
-        private readonly OrderRepositoryInterface     $orderRepository,
-        private readonly TrackFactory                 $trackFactory,
-        private readonly ShipmentRepositoryInterface  $shipmentRepository,
-        private readonly OrderConverter               $orderConverter,
-        private readonly TimezoneInterface            $timezone,
-        private readonly CollectionFactory            $orderStatusCollectionFactory,
-        private readonly SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory
+        Api                          $apiService,
+        ShipmentFactory              $shipmentFactory,
+        ProductFactory               $productFactory,
+        Config                       $config,
+        OrderRepositoryInterface     $orderRepository,
+        TrackFactory                 $trackFactory,
+        ShipmentRepositoryInterface  $shipmentRepository,
+        OrderConverter               $orderConverter,
+        TimezoneInterface            $timezone,
+        CollectionFactory            $orderStatusCollectionFactory,
+        SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory
     ) {
+        $this->apiService = $apiService;
+        $this->shipmentFactory = $shipmentFactory;
+        $this->config = $config;
+        $this->orderRepository = $orderRepository;
+        $this->trackFactory = $trackFactory;
+        $this->shipmentRepository = $shipmentRepository;
+        $this->orderConverter = $orderConverter;
+        $this->timezone = $timezone;
+        $this->productFactory = $productFactory;
+        $this->orderStatusCollectionFactory = $orderStatusCollectionFactory;
+        $this->searchCriteriaBuilderFactory = $searchCriteriaBuilderFactory;
     }
 
     /**

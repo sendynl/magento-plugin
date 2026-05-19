@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Edifference\Sendy\Controller\Adminhtml\Shipment;
 
-use Edifference\Sendy\Model\Config;
 use Edifference\Sendy\Service\Shipment;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -14,21 +13,29 @@ use Throwable;
 
 class Create extends Action
 {
+    /** @var RedirectFactory */
+    private RedirectFactory $redirectFactory;
+    /** @var OrderRepositoryInterface */
+    private OrderRepositoryInterface $orderRepository;
+    /** @var Shipment */
+    private Shipment $shipment;
+
     /**
      * @param Context                  $context
      * @param RedirectFactory          $redirectFactory
      * @param OrderRepositoryInterface $orderRepository
      * @param Shipment                 $shipment
-     * @param Config                   $config
      */
     public function __construct(
-        Context                                     $context,
-        private readonly RedirectFactory            $redirectFactory,
-        private readonly OrderRepositoryInterface   $orderRepository,
-        private readonly Shipment                   $shipment,
-        private readonly Config                     $config
+        Context                  $context,
+        RedirectFactory          $redirectFactory,
+        OrderRepositoryInterface $orderRepository,
+        Shipment                 $shipment
     ) {
         parent::__construct($context);
+        $this->redirectFactory = $redirectFactory;
+        $this->orderRepository = $orderRepository;
+        $this->shipment = $shipment;
     }
 
     /**
@@ -38,7 +45,6 @@ class Create extends Action
      */
     public function execute(): Redirect
     {
-        $autoDownload = false;
         try {
             $order = $this->orderRepository->get(
                 $this->getRequest()->getParam('order_id')
@@ -49,19 +55,13 @@ class Create extends Action
                 $this->getRequest()->getParam('preference')
             );
             $this->messageManager->addSuccessMessage(__('Shipment successfully created.'));
-            $autoDownload = $this->config->isAutoDownloadEnabled();
         } catch (Throwable $e) {
             $this->messageManager->addErrorMessage(__('Failed to create shipment: %1', $e->getMessage()));
         }
         $result = $this->redirectFactory->create();
-        $params = ['order_id' => $this->getRequest()->getParam('order_id')];
-        if ($autoDownload) {
-            $params['auto_download'] = true;
-        }
-        $result->setPath(
-            'sales/order/view',
-            $params
-        );
+        $result->setPath('sales/order/view', [
+            'order_id' => $this->getRequest()->getParam('order_id')
+        ]);
         return $result;
     }
 }

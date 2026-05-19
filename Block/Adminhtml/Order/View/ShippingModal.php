@@ -14,6 +14,11 @@ use Throwable;
  */
 class ShippingModal extends Template
 {
+    /** @var UrlInterface */
+    protected UrlInterface $urlBuilder;
+    /** @var Api */
+    private Api $api;
+
     /**
      * @param Context      $context
      * @param UrlInterface $urlBuilder
@@ -21,15 +26,17 @@ class ShippingModal extends Template
      * @param array        $data
      */
     public function __construct(
-        Context                         $context,
-        protected readonly UrlInterface $urlBuilder,
-        private readonly Api            $api,
-        array                           $data = []
+        Context      $context,
+        UrlInterface $urlBuilder,
+        Api          $api,
+        array        $data = []
     ) {
         parent::__construct(
             $context,
             $data
         );
+        $this->urlBuilder = $urlBuilder;
+        $this->api = $api;
     }
 
     /**

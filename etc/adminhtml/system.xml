@@ -33,11 +33,6 @@
                     <source_model>Edifference\Sendy\Model\Config\Source\SendyShop</source_model>
                     <comment>Select the shop to be used when creating the shipping label for this store. Sendy shops can only be loaded when you have a successful connection with Sendy in Connection Settings.</comment>
                 </field>
-                <field id="auto_download" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Auto download label</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Automatically download the shipping label after creating it.</comment>
-                </field>
                 <depends>
                     <field id="edifference_sendy/general/enable">1</field>
                 </depends>

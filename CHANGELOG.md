@@ -58,18 +58,3 @@
 ### Feature
 - Add link to the sendy application for sendy packages
 
-## [1.0.12] - 2025-07-23
-### Improvements
-- Improve address parsing
-
-## [1.0.13] - 2025-07-28
-### Improvements
-- PHP8.4 compatibility
-
-## [1.0.14] - 2026-04-13
-### Improvements
-- Automatically download generated shipment labels when configured to do so.
-
-## [1.0.15] - 2026-05-19
-### Improvements
-- Fix file permission issue

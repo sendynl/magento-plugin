@@ -9,12 +9,16 @@ use Throwable;
 
 class SendyShop implements OptionSourceInterface
 {
+    /** @var Api */
+    private Api $apiService;
+
     /**
      * @param Api $apiService
      */
     public function __construct(
-        private readonly Api $apiService
+        Api $apiService
     ) {
+        $this->apiService = $apiService;
     }
 
     /**

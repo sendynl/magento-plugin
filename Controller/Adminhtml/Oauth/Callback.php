@@ -19,6 +19,17 @@ use Sendy\Api\Connection;
  */
 class Callback extends Action
 {
+    /** @var WriterInterface */
+    private WriterInterface $configWriter;
+    /** @var TypeListInterface */
+    private TypeListInterface $cacheTypeList;
+    /** @var RedirectFactory */
+    private RedirectFactory $redirectFactory;
+    /** @var Config */
+    private Config $config;
+    /** @var Connection */
+    private Connection $sendyConnection;
+
     /**
      * @param Context           $context
      * @param WriterInterface   $configWriter
@@ -28,16 +39,21 @@ class Callback extends Action
      * @param Connection        $sendyConnection
      */
     public function __construct(
-        Context $context,
-        private readonly WriterInterface   $configWriter,
-        private readonly TypeListInterface $cacheTypeList,
-        private readonly RedirectFactory   $redirectFactory,
-        private readonly Config            $config,
-        private readonly Connection        $sendyConnection
+        Context           $context,
+        WriterInterface   $configWriter,
+        TypeListInterface $cacheTypeList,
+        RedirectFactory   $redirectFactory,
+        Config            $config,
+        Connection        $sendyConnection
     ) {
         parent::__construct($context);
         // This function is allowed to be called without a key, as it is called by sendy
         $this->_publicActions = ['callback'];
+        $this->configWriter = $configWriter;
+        $this->cacheTypeList = $cacheTypeList;
+        $this->redirectFactory = $redirectFactory;
+        $this->config = $config;
+        $this->sendyConnection = $sendyConnection;
     }
 
     /**
@@ -49,13 +65,11 @@ class Callback extends Action
     public function execute()
     {
         $this->configWriter->save(Config::CONFIG_PATH_AUTH_CODE, $this->getRequest()->getParam('code'));
-        $this->cacheTypeList->cleanType(CacheConfig::TYPE_IDENTIFIER);
-
         $this->sendyConnection->setOauthClient(true)
             ->setClientId($this->config->getClientId())
             ->setClientSecret($this->config->getClientSecret())
             ->setRedirectUrl($this->getUrl('edifference_sendy/oauth/callback', ['key' => 'magento']))
-            ->setAuthorizationCode($this->config->getAuthCode())
+            ->setAuthorizationCode($this->getRequest()->getParam('code'))
             ->setTokenUpdateCallback(function (Connection $connection) {
                 $this->configWriter->save(Config::CONFIG_PATH_ACCESS_TOKEN, $connection->getAccessToken());
                 $this->configWriter->save(Config::CONFIG_PATH_REFRESH_TOKEN, $connection->getRefreshToken());

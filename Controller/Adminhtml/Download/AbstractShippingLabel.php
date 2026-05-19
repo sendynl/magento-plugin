@@ -13,6 +13,13 @@ use Magento\Sales\Api\OrderRepositoryInterface;
 
 abstract class AbstractShippingLabel extends Action
 {
+    /** @var OrderRepositoryInterface */
+    protected OrderRepositoryInterface $orderRepository;
+    /** @var Api */
+    protected Api $apiService;
+    /** @var RawFactory */
+    protected RawFactory $resultRawFactory;
+
     /**
      * @param Context                  $context
      * @param OrderRepositoryInterface $orderRepository
@@ -20,12 +27,15 @@ abstract class AbstractShippingLabel extends Action
      * @param RawFactory               $resultRawFactory
      */
     public function __construct(
-        Context                                     $context,
-        protected readonly OrderRepositoryInterface $orderRepository,
-        protected readonly Api                      $apiService,
-        protected readonly RawFactory               $resultRawFactory,
+        Context                  $context,
+        OrderRepositoryInterface $orderRepository,
+        Api                      $apiService,
+        RawFactory               $resultRawFactory
     ) {
         parent::__construct($context);
+        $this->orderRepository = $orderRepository;
+        $this->apiService = $apiService;
+        $this->resultRawFactory = $resultRawFactory;
     }
 
     /**
